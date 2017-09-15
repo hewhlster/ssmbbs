@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<link  rel="stylesheet"   href="bt/css/bootstrap.css">
+		<link rel="stylesheet" href="css/style.css"    />
+	</head>
+	<body>
+				<!--
+        	作者：offline
+        	时间：2017-08-11
+        	描述：头部
+        -->
+		<nav class="nav navbar navbar-default navbar-fixed-top hidden-sm hidden-xs bg-info">
+			<div class="container">
+				<div class="navbar-header">
+					<div class="navbar-brand">
+						<img src="./img/ydlogo.jpg" />
+					</div>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="#"><img src="img/personal-header.png" class="img-circle" style="width:40px;height: 40px;" /></a>
+					</li>
+					<li>
+						<a href="#"><span class="glyphicon glyphicon-export">退出</span></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!--
+        	作者：offline
+        	时间：2017-08-11
+        	描述：内容区域
+        -->
+		<div class="container nav-margin-top">
+			<div class="col-lg-8 col-md-2 col-sm-1 col-xs-1">
+				<div class="input-group input-group-lg">
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-user">用户名</span>
+				</span>
+					<input type="text" class="form-control" />
+				</div>
+				<br  >
+				<div class="input-group input-group-lg">
+				  <span class="input-group-addon">
+				  	<span class="glyphicon glyphicon-lock">
+				  	  密码
+				  </span></span>
+				  <input type="password" class="form-control" />
+				</div>
+						<br  >
+				<div class="input-group input-group-lg">
+				  <span class="input-group-addon">
+				  	<span class="glyphicon glyphicon-lock">
+				  	  确认密码
+				  </span></span>
+				  <input type="password" class="form-control" />
+				</div>
+				<br>
+				<div class="input-group input-group-lg">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-phone">
+						  手机号
+					</span></span>
+					<input type="text" class="form-control" />
+				</div>
+				<br>
+				<div class="input-group input-group-lg">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-facetime-video">
+						头像
+					</span></span>
+					<input type="file" class="form-control" />
+				</div>
+				<br >
+				<div class="input-group">
+					<input type="checkbox" id="cb"/>
+						<script type="text/javascript">
+							$(function(){
+								alert("oop");
+								$("#cb").click(function(){
+									alert($(this).val());
+								});
+							})
+							
+						</script>
+						<a href="#" onclick="window.alert('Hello Jack')">同意用户协议</a>
+				</div>
+				<br >
+				<div class="row" style=" text-align: right;">
+					<button  id="reg-btn" class="btn btn-danger btn-lg disabled" style="width:150px;">注册</button>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-10 col-sm-1 col-xs-1">
+				fdsa
+			</div>
+		</div>
+		
+		<!--
+        	作者：offline
+        	时间：2017-08-11
+        	描述：页尾
+        -->
+		<nav  class="nav navbar navbar-default  col-md-hide foot">
+			<div class="container">
+
+			<div class="row">
+				
+			</div>
+			<br >
+			<div class="row">关注我们:<a href="mailto:hewhlster@gmail.com">hewhlster@gmail.com</a></div>
+			<div class="row">©1997-2017 Jack版权所有</div>
+			</div>
+		</nav>
+	</body>
+		<script type="text/javascript" src="jquery/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="bt/js/bootstrap.js"></script>
+</html>

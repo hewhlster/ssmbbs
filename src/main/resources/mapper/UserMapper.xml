@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fjh.dao.UserMapper">
+  <resultMap id="UserMap" type="org.fjh.entity.User">
+    <id column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="upass" jdbcType="VARCHAR" property="upass" />
+    <result column="ugender" jdbcType="VARCHAR" property="ugender" />
+    <result column="ubirthday" jdbcType="DATE" property="ubirthday" />
+    <result column="uemail" jdbcType="VARCHAR" property="uemail" />
+    <result column="uhead" jdbcType="VARCHAR" property="uhead" />
+    <result column="umemo" jdbcType="VARCHAR" property="umemo" />
+    <result column="urole" jdbcType="INTEGER" property="urole" />
+    <result column="uregtime" jdbcType="DATE" property="uregtime" />
+    <result column="ulastacctime" jdbcType="DATE" property="ulastacctime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    uid, uname, upass, ugender, ubirthday, uemail, uhead, umemo, urole, uregtime, ulastacctime
+  </sql>
+  <select id="selectByExample" parameterType="org.fjh.entity.UserExample" resultMap="UserMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="UserMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_user
+    where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.fjh.entity.UserExample">
+    delete from tbl_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.fjh.entity.User">
+       <selectKey keyProperty="uid" resultType="String" order="BEFORE">
+           select replace(uuid(),'-','') from dual 
+       </selectKey>
+    insert into tbl_user (uid, uname, upass, 
+      ugender, ubirthday, uemail, 
+      uhead, umemo, urole, 
+      uregtime, ulastacctime)
+    values (#{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, #{upass,jdbcType=VARCHAR}, 
+      #{ugender,jdbcType=VARCHAR}, #{ubirthday,jdbcType=DATE}, #{uemail,jdbcType=VARCHAR}, 
+      #{uhead,jdbcType=VARCHAR}, #{umemo,jdbcType=VARCHAR}, #{urole,jdbcType=INTEGER}, 
+      #{uregtime,jdbcType=DATE}, #{ulastacctime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="org.fjh.entity.User">
+    insert into tbl_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="uname != null">
+        uname,
+      </if>
+      <if test="upass != null">
+        upass,
+      </if>
+      <if test="ugender != null">
+        ugender,
+      </if>
+      <if test="ubirthday != null">
+        ubirthday,
+      </if>
+      <if test="uemail != null">
+        uemail,
+      </if>
+      <if test="uhead != null">
+        uhead,
+      </if>
+      <if test="umemo != null">
+        umemo,
+      </if>
+      <if test="urole != null">
+        urole,
+      </if>
+      <if test="uregtime != null">
+        uregtime,
+      </if>
+      <if test="ulastacctime != null">
+        ulastacctime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null">
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="upass != null">
+        #{upass,jdbcType=VARCHAR},
+      </if>
+      <if test="ugender != null">
+        #{ugender,jdbcType=VARCHAR},
+      </if>
+      <if test="ubirthday != null">
+        #{ubirthday,jdbcType=DATE},
+      </if>
+      <if test="uemail != null">
+        #{uemail,jdbcType=VARCHAR},
+      </if>
+      <if test="uhead != null">
+        #{uhead,jdbcType=VARCHAR},
+      </if>
+      <if test="umemo != null">
+        #{umemo,jdbcType=VARCHAR},
+      </if>
+      <if test="urole != null">
+        #{urole,jdbcType=INTEGER},
+      </if>
+      <if test="uregtime != null">
+        #{uregtime,jdbcType=DATE},
+      </if>
+      <if test="ulastacctime != null">
+        #{ulastacctime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.fjh.entity.UserExample" resultType="java.lang.Long">
+    select count(*) from tbl_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_user
+    <set>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uname != null">
+        uname = #{record.uname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upass != null">
+        upass = #{record.upass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ugender != null">
+        ugender = #{record.ugender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ubirthday != null">
+        ubirthday = #{record.ubirthday,jdbcType=DATE},
+      </if>
+      <if test="record.uemail != null">
+        uemail = #{record.uemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uhead != null">
+        uhead = #{record.uhead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.umemo != null">
+        umemo = #{record.umemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urole != null">
+        urole = #{record.urole,jdbcType=INTEGER},
+      </if>
+      <if test="record.uregtime != null">
+        uregtime = #{record.uregtime,jdbcType=DATE},
+      </if>
+      <if test="record.ulastacctime != null">
+        ulastacctime = #{record.ulastacctime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_user
+    set uid = #{record.uid,jdbcType=VARCHAR},
+      uname = #{record.uname,jdbcType=VARCHAR},
+      upass = #{record.upass,jdbcType=VARCHAR},
+      ugender = #{record.ugender,jdbcType=VARCHAR},
+      ubirthday = #{record.ubirthday,jdbcType=DATE},
+      uemail = #{record.uemail,jdbcType=VARCHAR},
+      uhead = #{record.uhead,jdbcType=VARCHAR},
+      umemo = #{record.umemo,jdbcType=VARCHAR},
+      urole = #{record.urole,jdbcType=INTEGER},
+      uregtime = #{record.uregtime,jdbcType=DATE},
+      ulastacctime = #{record.ulastacctime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.fjh.entity.User">
+    update tbl_user
+    <set>
+      <if test="uname != null">
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="upass != null">
+        upass = #{upass,jdbcType=VARCHAR},
+      </if>
+      <if test="ugender != null">
+        ugender = #{ugender,jdbcType=VARCHAR},
+      </if>
+      <if test="ubirthday != null">
+        ubirthday = #{ubirthday,jdbcType=DATE},
+      </if>
+      <if test="uemail != null">
+        uemail = #{uemail,jdbcType=VARCHAR},
+      </if>
+      <if test="uhead != null">
+        uhead = #{uhead,jdbcType=VARCHAR},
+      </if>
+      <if test="umemo != null">
+        umemo = #{umemo,jdbcType=VARCHAR},
+      </if>
+      <if test="urole != null">
+        urole = #{urole,jdbcType=INTEGER},
+      </if>
+      <if test="uregtime != null">
+        uregtime = #{uregtime,jdbcType=DATE},
+      </if>
+      <if test="ulastacctime != null">
+        ulastacctime = #{ulastacctime,jdbcType=DATE},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.fjh.entity.User">
+    update tbl_user
+    set uname = #{uname,jdbcType=VARCHAR},
+      upass = #{upass,jdbcType=VARCHAR},
+      ugender = #{ugender,jdbcType=VARCHAR},
+      ubirthday = #{ubirthday,jdbcType=DATE},
+      uemail = #{uemail,jdbcType=VARCHAR},
+      uhead = #{uhead,jdbcType=VARCHAR},
+      umemo = #{umemo,jdbcType=VARCHAR},
+      urole = #{urole,jdbcType=INTEGER},
+      uregtime = #{uregtime,jdbcType=DATE},
+      ulastacctime = #{ulastacctime,jdbcType=DATE}
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getByUnameAndUpass"  resultType="int">
+  	select count(*) from tbl_user where
+  	  uname=#{uname} and upass=#{upass} and utype=0
+  </select>
+  
+   <select id="getByUname" resultMap="UserMap"  >
+  		select* from tbl_user where uname=#{uname} and utype=0
+  </select>
+</mapper>
