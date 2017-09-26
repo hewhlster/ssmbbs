@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fjh.dao.TopicMapper">
+  <resultMap id="TopicMap" type="org.fjh.entity.Topic">
+    <id column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="tname" jdbcType="VARCHAR" property="tname" />
+    <result column="tcontent" jdbcType="VARCHAR" property="tcontent" />
+    <result column="treaded" jdbcType="INTEGER" property="treaded" />
+    <result column="tgooded" jdbcType="INTEGER" property="tgooded" />
+    <result column="bid" jdbcType="VARCHAR" property="bid" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="tpublishdate" jdbcType="DATE" property="tpublishdate" />
+    <result column="tmodfitydate" jdbcType="DATE" property="tmodfitydate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    tid, tname, tcontent, treaded, tgooded, bid, uid, tpublishdate, tmodfitydate
+  </sql>
+  <select id="selectByExample" parameterType="org.fjh.entity.TopicExample" resultMap="TopicMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="TopicMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_topic
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_topic
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.fjh.entity.TopicExample">
+    delete from tbl_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.fjh.entity.Topic">
+  <selectKey keyProperty="tid" resultType="String" order="BEFORE">
+  	select replace(uuid(),'-','') from dual
+  </selectKey>
+    insert into tbl_topic (tid, tname, tcontent, 
+      treaded, tgooded, bid, 
+      uid, tpublishdate, tmodfitydate
+      )
+    values (#{tid,jdbcType=VARCHAR}, #{tname,jdbcType=VARCHAR}, #{tcontent,jdbcType=VARCHAR}, 
+      #{treaded,jdbcType=INTEGER}, #{tgooded,jdbcType=INTEGER}, #{bid,jdbcType=VARCHAR}, 
+      #{uid,jdbcType=VARCHAR}, #{tpublishdate,jdbcType=DATE}, #{tmodfitydate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.fjh.entity.Topic">
+    insert into tbl_topic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="tname != null">
+        tname,
+      </if>
+      <if test="tcontent != null">
+        tcontent,
+      </if>
+      <if test="treaded != null">
+        treaded,
+      </if>
+      <if test="tgooded != null">
+        tgooded,
+      </if>
+      <if test="bid != null">
+        bid,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="tpublishdate != null">
+        tpublishdate,
+      </if>
+      <if test="tmodfitydate != null">
+        tmodfitydate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null">
+        #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tcontent != null">
+        #{tcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="treaded != null">
+        #{treaded,jdbcType=INTEGER},
+      </if>
+      <if test="tgooded != null">
+        #{tgooded,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null">
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="tpublishdate != null">
+        #{tpublishdate,jdbcType=DATE},
+      </if>
+      <if test="tmodfitydate != null">
+        #{tmodfitydate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.fjh.entity.TopicExample" resultType="java.lang.Long">
+    select count(*) from tbl_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_topic
+    <set>
+      <if test="record.tid != null">
+        tid = #{record.tid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tname != null">
+        tname = #{record.tname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tcontent != null">
+        tcontent = #{record.tcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treaded != null">
+        treaded = #{record.treaded,jdbcType=INTEGER},
+      </if>
+      <if test="record.tgooded != null">
+        tgooded = #{record.tgooded,jdbcType=INTEGER},
+      </if>
+      <if test="record.bid != null">
+        bid = #{record.bid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpublishdate != null">
+        tpublishdate = #{record.tpublishdate,jdbcType=DATE},
+      </if>
+      <if test="record.tmodfitydate != null">
+        tmodfitydate = #{record.tmodfitydate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_topic
+    set tid = #{record.tid,jdbcType=VARCHAR},
+      tname = #{record.tname,jdbcType=VARCHAR},
+      tcontent = #{record.tcontent,jdbcType=VARCHAR},
+      treaded = #{record.treaded,jdbcType=INTEGER},
+      tgooded = #{record.tgooded,jdbcType=INTEGER},
+      bid = #{record.bid,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      tpublishdate = #{record.tpublishdate,jdbcType=DATE},
+      tmodfitydate = #{record.tmodfitydate,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.fjh.entity.Topic">
+    update tbl_topic
+    <set>
+      <if test="tname != null">
+        tname = #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tcontent != null">
+        tcontent = #{tcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="treaded != null">
+        treaded = #{treaded,jdbcType=INTEGER},
+      </if>
+      <if test="tgooded != null">
+        tgooded = #{tgooded,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null">
+        bid = #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="tpublishdate != null">
+        tpublishdate = #{tpublishdate,jdbcType=DATE},
+      </if>
+      <if test="tmodfitydate != null">
+        tmodfitydate = #{tmodfitydate,jdbcType=DATE},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.fjh.entity.Topic">
+    update tbl_topic
+    set tname = #{tname,jdbcType=VARCHAR},
+      tcontent = #{tcontent,jdbcType=VARCHAR},
+      treaded = #{treaded,jdbcType=INTEGER},
+      tgooded = #{tgooded,jdbcType=INTEGER},
+      bid = #{bid,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=VARCHAR},
+      tpublishdate = #{tpublishdate,jdbcType=DATE},
+      tmodfitydate = #{tmodfitydate,jdbcType=DATE}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectTopicListByBid" resultMap="TopicMap">
+  		select *from tbl_topic where bid=#{bid}
+  </select>
+  
+  <update id="updateReadedByPrimaryKey" parameterType="String">
+  	update tbl_topic set treaded=treaded+1 where tid=#{tid}
+  </update>
+  
+  <select id="pager" resultMap="TopicMap">
+  	select *from tbl_topic where bid=#{0} limit #{1},#{2}
+  </select>
+  
+  <select id="getRowCnt" resultType="Integer">
+  	select count(*) from tbl_topic where bid=#{bid};
+  </select>
+  
+</mapper>
