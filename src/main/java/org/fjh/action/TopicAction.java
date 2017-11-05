@@ -52,7 +52,7 @@ public class TopicAction {
 		
 		
 		topicService.newTopic(topic);
-		return "redirect:/topiclist.do?boardid="+topic.getBid();
+		return "redirect:/pager.do?bid="+topic.getBid();
 	}
 	
 	@RequestMapping("/gettopic")
