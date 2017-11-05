@@ -13,6 +13,8 @@
     <result column="urole" jdbcType="INTEGER" property="urole" />
     <result column="uregtime" jdbcType="DATE" property="uregtime" />
     <result column="ulastacctime" jdbcType="DATE" property="ulastacctime" />
+    <result column="utype" jdbcType="INTEGER" property="utype" />
+    
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -306,12 +308,12 @@
     where uid = #{uid,jdbcType=VARCHAR}
   </update>
   
-  <select id="getByUnameAndUpass"  resultType="int">
+  <select id="getUserByUnameAndUpass"  resultType="int">
   	select count(*) from tbl_user where
   	  uname=#{uname} and upass=#{upass} and utype=0
   </select>
   
    <select id="getByUname" resultMap="UserMap"  >
-  		select* from tbl_user where uname=#{uname} and utype=0
+  		select* from tbl_user where uname=#{uname}
   </select>
 </mapper>

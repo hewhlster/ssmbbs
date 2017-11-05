@@ -36,7 +36,7 @@ public interface TopicMapper {
     
     int updateReadedByPrimaryKey(String tid);
     
-    List<Topic> pager(String bid,Integer beginIndex,Integer endIndex);
+    List<Topic> pager(@Param("bid")String bid,@Param("beginIndex")Integer beginIndex,@Param("endIndex")Integer endIndex);
     
     int getRowCnt(String bid);
 }

@@ -26,9 +26,7 @@ public class User {
     private Date uregtime;
 
     private Date ulastacctime;
-
     private Integer utype=0;
-    
     
     public Integer getUtype() {
 		return utype;

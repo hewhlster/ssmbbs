@@ -21,7 +21,7 @@ public class UserServiceImpl implements IUserService{
 
 
 	public User login(User user) {
-		int ret= userDao.getByUnameAndUpass(user);
+		int ret= userDao.getUserByUnameAndUpass(user);
 		if( ret >0 )
 			return userDao.getByUname(user.getUname());
 		else

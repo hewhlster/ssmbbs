@@ -285,7 +285,7 @@
   </update>
   
   <select id="pager" resultMap="TopicMap">
-  	select *from tbl_topic where bid=#{0} limit #{1},#{2}
+  	select *from tbl_topic where bid=#{bid} limit #{beginIndex},#{endIndex}
   </select>
   
   <select id="getRowCnt" resultType="Integer">
